@@ -8,9 +8,13 @@ const dbConnect = require('./config/dbConnect')
 const PORT = process.env.PORT || 8082
 
 const app = express()
-dbConnect()
 
-app.get('/', (req, res) => {
+dbConnect()
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(cookieParser())
+
+app.get('/api/v1', (req, res) => {
   res.status(200).send('Hello world')
 })
 
