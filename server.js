@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser')
 // LOCAL IMPORTS
 const dbConnect = require('./config/dbConnect')
 const { errorHandler, notFound } = require('./middlewares')
+const userRouter = require('./routes/userRouter')
 
 // DECLARATIONS
 const PORT = process.env.PORT || 8082
@@ -20,6 +21,8 @@ app.use(cookieParser())
 app.get('/api/v1', (req, res) => {
   res.status(200).send('Hello world')
 })
+
+app.use('/api/v1', userRouter)
 //ERROR HANDLER
 app.use(errorHandler)
 app.use(notFound)
