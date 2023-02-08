@@ -18,11 +18,12 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 
+app.use('/api/v1/user', userRouter)
+
 app.get('/api/v1', (req, res) => {
   res.status(200).send('Hello world')
 })
 
-app.use('/api/v1', userRouter)
 //ERROR HANDLER
 app.use(errorHandler)
 app.use(notFound)

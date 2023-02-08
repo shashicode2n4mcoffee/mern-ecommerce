@@ -5,12 +5,12 @@ const { userCtrl } = require('../controllers/index')
 
 const validate = require('../validation')
 
-const loginUserSchema = require('../validation/loginUser')
+const loginUserSchema = require('../validation/loginUserSchema')
 const newUserSchema = require('../validation/newUserSchema')
 const updateRoleSchema = require('../validation/updateRoleSchema')
 
-router.post('/user', validate(newUserSchema), userCtrl.registerUser)
-router.post('/user', validate(loginUserSchema), userCtrl.loginUser)
-router.post('/user', validate(updateRoleSchema), userCtrl.updateRole)
+router.post('/register', validate(newUserSchema), userCtrl.registerUser)
+router.post('/login', validate(loginUserSchema), userCtrl.loginUser)
+router.patch('/role', validate(updateRoleSchema), userCtrl.updateRole)
 
 module.exports = router
