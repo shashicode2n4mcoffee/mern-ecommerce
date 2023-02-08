@@ -42,4 +42,29 @@ const loginUser = handleAsync(
   }
 )
 
-module.exports = { registerUser, loginUser }
+const updateRole = handleAsync(
+  async (req, res) => {
+    const findUser = User.findOne(email)
+    console.log('FIND USER : ', findUser)
+    if (!findUser) {
+      responseError(res, 404, false, 'User not exists', null)
+    }
+
+    if (findUser?.role !== 'admin') {
+      responseError(res, 403, false, 'Unauthorized action', null)
+    }
+
+    const updatedUserRole = User.findOneAndUpdate(
+      { email: req.body?.email },
+      { role: req.body?.role },
+      { new: true }
+    )
+
+    responseSuccess(res, 200, true, updatedUserRole)
+  },
+  (error) => {
+    throw new Error(error)
+  }
+)
+
+module.exports = { registerUser, loginUser, updateRole }
