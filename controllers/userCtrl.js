@@ -18,7 +18,9 @@ const registerUser = handleAsync(
       }
     }
   },
-  (error) => {}
+  (error) => {
+    throw new Error(error)
+  }
 )
 
 const loginUser = handleAsync(
@@ -40,4 +42,4 @@ const loginUser = handleAsync(
   }
 )
 
-module.exports = { registerUser }
+module.exports = { registerUser, loginUser }
