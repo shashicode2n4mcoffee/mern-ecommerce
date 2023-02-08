@@ -1,3 +1,5 @@
+const responseError = require('../responses/responseError')
+
 const validate = (schema) => async (req, res, next) => {
   try {
     await schema.validate({
@@ -7,8 +9,7 @@ const validate = (schema) => async (req, res, next) => {
     })
     return next()
   } catch (err) {
-    console.log('SHASHI ERROR : ', err)
-    return res.status(500).json({ type: err.name, message: err.message })
+    responseError(res, 500, false, err?.message, null)
   }
 }
 
