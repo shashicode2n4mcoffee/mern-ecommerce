@@ -20,9 +20,9 @@ app.use(cookieParser())
 
 app.use('/api/v1/user', userRouter)
 
-app.get('/api/v1', (req, res) => {
-  res.status(200).send('Hello world')
-})
+// app.get('/api/v1', (req, res) => {
+//   res.status(200).send('Hello world')
+// })
 
 //ERROR HANDLER
 app.use(errorHandler)

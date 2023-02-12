@@ -1,5 +1,9 @@
-const userCtrl = require('./userCtrl')
+const registerUserCtrl = require('./user/registerCtrl')
+const loginCtrl = require('./user/loginCtrl')
+const updateRoleCtrl = require('./user/updateRoleCtrl')
 
 module.exports = {
-  userCtrl,
+  registerUserCtrl,
+  loginCtrl,
+  updateRoleCtrl,
 }
