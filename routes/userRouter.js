@@ -1,16 +1,20 @@
 const express = require('express')
 const router = express.Router()
 
-const { userCtrl } = require('../controllers/index')
-
+const {
+  registerUserCtrl,
+  loginCtrl,
+  updateRoleCtrl,
+} = require('../controllers/index')
+const auth = require('../middlewares/auth')
 const validate = require('../validation')
 
 const loginUserSchema = require('../validation/loginUserSchema')
 const newUserSchema = require('../validation/newUserSchema')
 const updateRoleSchema = require('../validation/updateRoleSchema')
 
-router.post('/register', validate(newUserSchema), userCtrl.registerUser)
-router.post('/login', validate(loginUserSchema), userCtrl.loginUser)
-router.patch('/role', validate(updateRoleSchema), userCtrl.updateRole)
+router.post('/register', validate(newUserSchema), registerUserCtrl)
+router.post('/login', validate(loginUserSchema), loginCtrl)
+router.patch('/role', validate(updateRoleSchema), auth, updateRoleCtrl)
 
 module.exports = router
