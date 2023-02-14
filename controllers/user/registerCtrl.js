@@ -3,6 +3,7 @@ const handleAsync = require('async-error-handler')
 const { User } = require('../../models/index')
 const responseError = require('../../responses/responseError')
 const responseSuccess = require('../../responses/responseSuccess')
+const generateHashedPassword = require('../../utils/generateHashPassword')
 
 const registerUserCtrl = handleAsync(
   async (req, res) => {
@@ -12,7 +13,8 @@ const registerUserCtrl = handleAsync(
       responseError(res, 409, false, 'User already exists', null)
     }
 
-    const user = await User.create(req.body)
+    const hashedPassword = await generateHashedPassword(req.body?.password)
+    const user = await User.create({ ...req.body, password: hashedPassword })
 
     if (user) {
       responseSuccess(res, 200, true, user)
