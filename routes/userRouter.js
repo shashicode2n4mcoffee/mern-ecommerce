@@ -6,7 +6,7 @@ const {
   loginCtrl,
   updateRoleCtrl,
 } = require('../controllers/index')
-
+const auth = require('../middlewares/auth')
 const validate = require('../validation')
 
 const loginUserSchema = require('../validation/loginUserSchema')
@@ -15,6 +15,6 @@ const updateRoleSchema = require('../validation/updateRoleSchema')
 
 router.post('/register', validate(newUserSchema), registerUserCtrl)
 router.post('/login', validate(loginUserSchema), loginCtrl)
-router.patch('/role', validate(updateRoleSchema), updateRoleCtrl)
+router.patch('/role', validate(updateRoleSchema), auth, updateRoleCtrl)
 
 module.exports = router
