@@ -6,7 +6,7 @@ const responseSuccess = require('../../responses/responseSuccess')
 
 const updateRoleCtrl = handleAsync(
   async (req, res) => {
-    const findAdmin = await User.findOne({ email: req.body?.email })
+    const findAdmin = await User.findOne({ email: req.user?.email })
 
     !findAdmin && responseError(res, 404, false, 'Admin not exists', null)
 
@@ -15,8 +15,8 @@ const updateRoleCtrl = handleAsync(
 
     if (findAdmin?.role === 'admin') {
       const updatedUserRole = await User.findOneAndUpdate(
-        { email: req.body?.user?.email },
-        { role: req.body?.user?.role },
+        { email: req.body?.email },
+        { role: req.body?.role },
         { new: true }
       )
 
