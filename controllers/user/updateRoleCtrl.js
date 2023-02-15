@@ -10,10 +10,13 @@ const updateRoleCtrl = handleAsync(
 
     !findAdmin && responseError(res, 404, false, 'Admin not exists', null)
 
+    findAdmin?.isBlocked &&
+      responseError(res, 403, false, 'Unauthorised action', null)
+
     findAdmin?.role !== 'admin' &&
       responseError(res, 403, false, 'Unauthorized action', null)
 
-    if (findAdmin?.role === 'admin') {
+    if (findAdmin?.role === 'admin' && findAdmin?.isBlocked === false) {
       const updatedUserRole = await User.findOneAndUpdate(
         { email: req.body?.email },
         { role: req.body?.role },
