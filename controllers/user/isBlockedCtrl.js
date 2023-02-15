@@ -7,10 +7,12 @@ const responseSuccess = require('../../responses/responseSuccess')
 const isBlockedCtrl = handleAsync(
   async (req, res) => {
     const adminUser = await User.findOne({ email: req.user?.email })
+    adminUser?.isBlocked &&
+      responseError(res, 403, false, 'Unauthorised action', null)
     adminUser?.role !== 'admin' &&
       responseError(res, 401, false, 'Unauthorised action', null)
 
-    if (adminUser?.role === 'admin') {
+    if (adminUser?.role === 'admin' && adminUser?.isBlocked === false) {
       const user = await User.findOne({ email: req.body?.email })
 
       !user && responseError(res, 404, false, 'User not found', null)
